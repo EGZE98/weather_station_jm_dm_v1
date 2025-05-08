@@ -15,6 +15,9 @@
 #include "keys.h"
 #include "leds.h"
 #include "buzzer.h"
+#include "timer.h"
+
+extern volatile uint8_t duty_cycle;
 
 /* macro definitions of operations on control signals RS,RW and E */
 #define SET_RS 	PORT(LCD_RSPORT) |= (1<<LCD_RS)			// high state on RS line
@@ -255,7 +258,7 @@ void lcd_init(void)
 	lcd_cls();
 }
 
-void LCD_ON_OFF (void)					// LCD turn on / off function
+void LCD_ON_OFF(void)					// LCD turn on / off function
 {
 	if (KEY1_PRESSED)					// Condition for turning on LCD
 	_delay_ms(20);					// Wait 20ms
@@ -274,4 +277,18 @@ void LCD_ON_OFF (void)					// LCD turn on / off function
 		LCD_OFF;				// LCD off
 		sound_and_blink();		// Blink and sound function
 	}
+}
+
+void lcd_intro(void)
+{
+	for(int i = 255; i > 0; i--)
+	{
+		duty_cycle = i;
+		_delay_ms(10);
+	}
+}
+
+void lcd_brightness(uint8_t photoR)
+{
+	duty_cycle = photoR;
 }

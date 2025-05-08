@@ -20,5 +20,5 @@ uint16_t ADC_measurement(uint8_t canal)
 	ADMUX = (ADMUX & 0xF8) | canal;		
 	ADCSRA |= (1 << ADSC);					
 	while (ADCSRA & (1 << ADSC));			
-	return ADCW;
+	return (uint8_t)(ADCW >> 2);
 }

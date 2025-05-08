@@ -20,12 +20,15 @@
 #include "lcd.h"
 #include "buzzer.h"
 #include "keys.h"
+#include "timer.h"
 
 uint8_t wynik;
 
-char tab0 [] = {"Weather  Station"};
-char tab1 [] = {"by JM & DM"};
-char tab2 [] = {"alpha 0.1"};
+extern volatile uint8_t duty_cycle;
+
+char name1 [] = {"Weather  Station"};
+char name2 [] = {"by JM & DM"};
+char version [] = {"alpha 0.1"};
 char date [] = {"27.04.2023"};
 	
 int main(void)
@@ -37,38 +40,29 @@ int main(void)
 	USART0_init(MYUBRR);
 	ADC_init();
 	lcd_init();
+	timer0_init(); 
+	LCD_BACKLIGHT_ON;
+	LCD_ON;
+	lcd_intro();
 	
 	lcd_locate(0,2);
-	lcd_str(tab0);
+	lcd_str(name1);
 
 	lcd_locate(1,5);
-	lcd_str(tab1);
+	lcd_str(name2);
 
 	lcd_locate(3,11);
-	lcd_str(tab2);
+	lcd_str(version);
 	
 	lcd_locate(3,0);
 	lcd_str(date);
 	
-	LCD_BACKLIGHT_ON;
-	LCD_ON;
-	
-	_delay_ms(1000);
+	_delay_ms(3000);
 	lcd_cls();
 
 	while(1) 
 	{
-		LCD_ON_OFF();
-		sound_and_blink();
-		
-		wynik = (ADC_measurement (3) * (2.56/1024) * 2);
-		
-		lcd_locate(0,0);
-		char tab3 [] = {"Pr = "};
-		lcd_str(tab3);
-		lcd_int(wynik);
-		
-		_delay_ms(1000);
+		lcd_brightness(ADC_measurement (3));
 
 	}
 }
