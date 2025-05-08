@@ -94,5 +94,7 @@ void lcd_str(char * str);							// send the string
 void lcd_locate(uint8_t y, uint8_t x);				// position on the display
 void lcd_cls(void);									// clear the LCD
 void LCD_ON_OFF (void);								// Turn on / off LCD function declaration
+void lcd_intro(void);
+void lcd_brightness(uint8_t);
 
 #endif /* LCD_H_ */
