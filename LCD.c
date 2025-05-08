@@ -1,3 +1,10 @@
+/*
+ * LCD.c
+ *
+ * Created: 5/8/2025 4:00:28 PM
+ *  Author: dawid
+ */ 
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
@@ -5,6 +12,9 @@
 #include <stdio.h>
 
 #include "LCD.h"
+#include "KEYS.h"
+#include "LEDS.h"
+#include "BUZZER.h"
 
 /* macro definitions of operations on control signals RS,RW and E */
 #define SET_RS 	PORT(LCD_RSPORT) |= (1<<LCD_RS)			// high state on RS line
@@ -185,6 +195,9 @@ void lcd_cls(void)
 /* LCD initialization */
 void lcd_init(void)
 {
+	DDRC |= (1 << PC7);					// Setting pin for LCD turning on / off as output
+	DDRC |= (1 << PC6);					// Setting pin for LCD backlight turning on / off as output
+	
 	// inicjowanie pinów portów ustalonych do pod³¹czenia z wyœwietlaczem LCD
 	// ustawienie wszystkich jako wyjœcia
 	data_dir_out();
@@ -240,4 +253,25 @@ void lcd_init(void)
 
 	// kasowanie ekranu
 	lcd_cls();
+}
+
+void LCD_ON_OFF (void)					// LCD turn on / off function
+{
+	if (KEY1_PRESSED)					// Condition for turning on LCD
+	_delay_ms(20);					// Wait 20ms
+	if (KEY1_PRESSED)				// If KEY1 still pressed
+	{
+		LCD_BACKLIGHT_ON;		// Turn on LCD backlight
+		LCD_ON;					// LCD on
+		sound_and_blink();		// Blink and sound function
+	}
+	
+	if (KEY2_PRESSED)					// Condition for turning off LCD
+	_delay_ms(20);					// Wait 20ms
+	if (KEY2_PRESSED)				// If KEY2 still pressed
+	{
+		LCD_BACKLIGHT_OFF;		// Turn off LCD backlight
+		LCD_OFF;				// LCD off
+		sound_and_blink();		// Blink and sound function
+	}
 }

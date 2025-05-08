@@ -14,27 +14,29 @@
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
 
-#include "PINS_CONFIG.h"
+#include "LEDS.h"
 #include "USART0.h"
 #include "ADC.h"
 #include "LCD.h"
+#include "BUZZER.h"
+#include "KEYS.h"
 
 uint8_t wynik;
 
-char tab0 [] = {"Weather  Station"};	// First writing
-char tab1 [] = {"by JM & DM"};		// Second writing
-char tab2 [] = {"alpha 0.1"};		// Third writing
-char date [] = {"27.04.2023"};		// Fourth writing
+char tab0 [] = {"Weather  Station"};
+char tab1 [] = {"by JM & DM"};
+char tab2 [] = {"alpha 0.1"};
+char date [] = {"27.04.2023"};
 	
 int main(void)
 {
-	pins_configuration();		// Pins definitions
-	BUZZER_OFF;					// Turn off buzzer
-	LCD_BACKLIGHT_OFF;			// Turn off LCD backlight
-	LCD_OFF;					// Turn off LCD
-	USART0_init(MYUBRR);		// USART0 initialization
-	ADC_init();					// ADC initialization
-	lcd_init();					// LCD initialization
+	led_pins_set_output();
+	BUZZER_OFF;
+	LCD_BACKLIGHT_OFF;
+	LCD_OFF;
+	USART0_init(MYUBRR);
+	ADC_init();
+	lcd_init();
 	
 	lcd_locate(0,2);
 	lcd_str(tab0);
@@ -56,8 +58,8 @@ int main(void)
 
 	while(1) 
 	{
-		LCD_ON_OFF();				// Turn on / off LCD
-		flash_and_play();			// Sound when key is pushed
+		LCD_ON_OFF();
+		sound_and_blink();
 		
 		wynik = (ADC_measurement (3) * (2.56/1024) * 2);
 		

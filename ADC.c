@@ -1,11 +1,12 @@
 /*
- * CFile1.c
+ * ADC.c
  *
  * Created: 2/9/2023 6:50:07 PM
  *  Author: dawid
  */ 
 
 #include <avr/io.h>
+
 #include "ADC.h"
 
 void ADC_init(void)

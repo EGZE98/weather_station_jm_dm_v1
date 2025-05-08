@@ -1,5 +1,18 @@
+/*
+ * LCD.h
+ *
+ * Created: 5/8/2025 4:00:28 PM
+ *  Author: dawid
+ */ 
+
 #ifndef LCD_H_
 #define LCD_H_
+
+#define LCD_OFF				PORTC |=  (1 << PC7)	// Turn off LCD
+#define LCD_ON				PORTC &= ~(1 << PC7)	// Turn on LCD
+
+#define LCD_BACKLIGHT_OFF	PORTC |=  (1 << PC6)	// Turn off LCD backlight
+#define LCD_BACKLIGHT_ON	PORTC &= ~(1 << PC6)	// Turn on LCD backlight
 
 /* LCD resolution */
 #define LCD_ROWS 4
@@ -80,5 +93,6 @@ void lcd_int(int val);								// send the integer
 void lcd_str(char * str);							// send the string
 void lcd_locate(uint8_t y, uint8_t x);				// position on the display
 void lcd_cls(void);									// clear the LCD
+void LCD_ON_OFF (void);								// Turn on / off LCD function declaration
 
 #endif /* LCD_H_ */
