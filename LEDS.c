@@ -11,7 +11,7 @@
 #include <util/delay.h>
 #include <stdio.h>
 
-#include "LEDS.h"
+#include "leds.h"
 
 void led_pins_set_output(void)			// Pins configuration function
 {

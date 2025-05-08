@@ -14,12 +14,12 @@
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
 
-#include "LEDS.h"
-#include "USART0.h"
-#include "ADC.h"
-#include "LCD.h"
-#include "BUZZER.h"
-#include "KEYS.h"
+#include "leds.h"
+#include "usart0.h"
+#include "adc.h"
+#include "lcd.h"
+#include "buzzer.h"
+#include "keys.h"
 
 uint8_t wynik;
 

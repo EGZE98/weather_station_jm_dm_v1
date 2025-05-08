@@ -11,4 +11,4 @@
 #include <stdlib.h>
 #include <util/delay.h>
 
-#include "KEYS.h"
+#include "keys.h"

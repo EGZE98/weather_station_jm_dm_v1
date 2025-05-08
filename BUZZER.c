@@ -11,10 +11,10 @@
 #include <stdlib.h>
 #include <util/delay.h>
 
-#include "BUZZER.h"
-#include "KEYS.h"
-#include "LEDS.h"
-#include "LCD.h"
+#include "buzzer.h"
+#include "keys.h"
+#include "leds.h"
+#include "lcd.h"
 
 void sound_and_blink(void)				// Blink and sound for key function
 {

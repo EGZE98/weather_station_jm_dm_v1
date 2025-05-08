@@ -11,10 +11,10 @@
 #include <util/delay.h>
 #include <stdio.h>
 
-#include "LCD.h"
-#include "KEYS.h"
-#include "LEDS.h"
-#include "BUZZER.h"
+#include "lcd.h"
+#include "keys.h"
+#include "leds.h"
+#include "buzzer.h"
 
 /* macro definitions of operations on control signals RS,RW and E */
 #define SET_RS 	PORT(LCD_RSPORT) |= (1<<LCD_RS)			// high state on RS line

@@ -7,7 +7,7 @@
 
 #include <avr/io.h>
 
-#include "ADC.h"
+#include "adc.h"
 
 void ADC_init(void)
 {
