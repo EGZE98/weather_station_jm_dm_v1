@@ -281,7 +281,7 @@ void LCD_ON_OFF(void)					// LCD turn on / off function
 
 void lcd_intro(void)
 {
-	for(int i = 255; i > 0; i--)
+	for(int i = 0; i < 256; i++)
 	{
 		duty_cycle = i;
 		_delay_ms(10);

@@ -17,13 +17,14 @@ volatile uint8_t counter = 0;
 void timer0_init() 
 {
 	DDRC |= (1 << PC6);  
-	TCCR0 = (1 << WGM01) | (1 << CS01) | (1 << CS00); // CTC, prescaler 64
-	OCR0 = 18;  // daje ~12.75 kHz (czyli pe?ny cykl 50 Hz)
-	TIMSK |= (1 << OCIE0);              // Enable compare match interrupt
-	sei();                              // Enable global interrupts
+	TCCR0 = (1 << WGM01) | (1 << CS01) | (1 << CS00);
+	OCR0 = 12;
+	TIMSK |= (1 << OCIE0);
+	sei();
 }
 
-ISR(TIMER0_COMP_vect) {
+ISR(TIMER0_COMP_vect) 
+{
 	counter++;
 	if (counter < (255 - duty_cycle)) {
 		PORTC |= (1 << PC6);  // Wysoki
