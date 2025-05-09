@@ -281,6 +281,23 @@ void LCD_ON_OFF(void)					// LCD turn on / off function
 
 void lcd_intro(void)
 {
+	char name1 [] = {"Weather  Station"};
+	char name2 [] = {"by JM & DM"};
+	char version [] = {"alpha 0.1"};
+	char date [] = {"27.04.2023"};
+		
+	lcd_locate(0,2);
+	lcd_str(name1);
+
+	lcd_locate(1,5);
+	lcd_str(name2);
+
+	lcd_locate(3,11);
+	lcd_str(version);
+		
+	lcd_locate(3,0);
+	lcd_str(date);
+		
 	for(int i = 0; i < 256; i++)
 	{
 		duty_cycle = i;

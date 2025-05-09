@@ -21,15 +21,14 @@
 #include "buzzer.h"
 #include "keys.h"
 #include "timer.h"
+#include "dht22.h"
 
 uint8_t wynik;
 
 extern volatile uint8_t duty_cycle;
 
-char name1 [] = {"Weather  Station"};
-char name2 [] = {"by JM & DM"};
-char version [] = {"alpha 0.1"};
-char date [] = {"27.04.2023"};
+char ok [] = {"ok"};
+char nieok [] = {"nieok"};
 	
 int main(void)
 {
@@ -40,29 +39,35 @@ int main(void)
 	USART0_init(MYUBRR);
 	ADC_init();
 	lcd_init();
+	DHT22_Init();
 	timer0_init(); 
 	LCD_BACKLIGHT_ON;
 	LCD_ON;
 	lcd_intro();
 	
-	lcd_locate(0,2);
-	lcd_str(name1);
-
-	lcd_locate(1,5);
-	lcd_str(name2);
-
-	lcd_locate(3,11);
-	lcd_str(version);
-	
-	lcd_locate(3,0);
-	lcd_str(date);
-	
-	_delay_ms(3000);
+	//_delay_ms(3000);
 	lcd_cls();
+
+	DHT22_Init();
+	_delay_ms(1000);
 
 	while(1) 
 	{
-		lcd_brightness(ADC_measurement (3));
+		//lcd_brightness(ADC_measurement (3));
+		if (DHT22_Read() == 0) 
+		{
+			DHT22_Print();
+			lcd_locate(3,0);
+			lcd_str(ok);
+		} 
+		else 
+		{
+			lcd_locate(3,0);
+			lcd_str(nieok);
+		}
+		lcd_locate(2,0);
+
+		_delay_ms(2000); // Opó?nienie 2 sekundy
 
 	}
 }
